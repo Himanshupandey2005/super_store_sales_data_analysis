@@ -12,7 +12,7 @@ A retail superstore wants to understand:
 - Are there seasonal patterns in sales that the business should plan around?
 - How is the business trending year-over-year?
 
-This project answers these questions using SQL for structured business queries and Python (Pandas/Matplotlib/Seaborn) for exploratory data analysis and visualization.
+This project answers these questions using SQL for structured business queries and Python (Pandas/Matplotlib/Seaborn/Plotly) for exploratory data analysis and visualization.
 
 ---
 
@@ -23,22 +23,22 @@ This project answers these questions using SQL for structured business queries a
 - **Time Range:** 2015 – 2018
 - **Columns:** Order details, Customer info, Product info, Sales, Shipping info, Location (State/City/Region)
 
-The raw CSV was normalized into a **relational schema (4 tables)** for SQL-based analysis:
+The raw CSV was normalized into a **relational schema (4 tables)**, stored in `Divided_data/` and loaded into `superstore_sales_fixed.db` for SQL-based analysis:
 
 | Table | Description |
 |---|---|
-| `customers` | Customer ID, Name, Segment, Country |
-| `orders` | Order ID, Order/Ship Date, Ship Mode, Customer ID, City, State, Postal Code, Region |
-| `products` | Product ID, Category, Sub-Category, Product Name |
-| `order_details` | Row ID, Order ID, Product ID, Sales |
+| `customers.csv` | Customer ID, Name, Segment, Country |
+| `orders.csv` | Order ID, Order/Ship Date, Ship Mode, Customer ID, City, State, Postal Code, Region |
+| `products.csv` | Product ID, Category, Sub-Category, Product Name |
+| `order_details.csv` | Row ID, Order ID, Product ID, Sales |
 
-> **Design note:** State/City/Region were intentionally placed in the `orders` table (not `customers`), since shipping location is an order-level attribute — a single customer can ship to multiple states across different orders.
+> **Design note:** State/City/Region were intentionally placed in `orders.csv` (not `customers.csv`), since shipping location is an order-level attribute — a single customer can ship to multiple states across different orders.
 
 ---
 
 ## 🛠️ Tools & Tech Stack
 
-- **Python** — Pandas, Matplotlib, Seaborn
+- **Python** — Pandas, Matplotlib, Seaborn, Plotly
 - **SQL** — SQLite (via `sqlite3` + `pandas.read_sql`)
 - **Jupyter Notebook** — analysis and visualization
 
@@ -52,18 +52,19 @@ The raw CSV was normalized into a **relational schema (4 tables)** for SQL-based
 - **Shipping preference:** Standard Class accounts for ~59% of all sales — customers strongly prefer cost-effective delivery over speed.
 - **Seasonality:** Sales consistently peak in Sep–Dec (holiday season) and dip in Jan–Feb every year.
 - **Year-over-year growth:** Total sales grew from $479K (2015) to $722K (2018).
+- **Customer segmentation (RFM):** High-Value Loyal customers (25.6% of customer base) generate ~42% of total revenue; At Risk customers still hold $256K+ in revenue worth protecting through win-back campaigns.
 - **Underperforming states:** North Dakota, West Virginia, and Maine show minimal sales — potential opportunity or weak market reach.
 
 ---
 
 ## 📈 Sample Visualizations
 
-- Monthly sales trend (2015–2018)
-- Category & Sub-Category-wise sales breakdown
-- Sales distribution & outlier detection
-- State-wise performance comparison
+![Month-over-Month Sales Trend](charts/Month-over-Month%20Sales%20Trend.png)
+![Customer Segmentation (RFM)](charts/Customer%20Segmentation.png)
+![Customer Cohort Retention](charts/Customer%20cohort%20retention.png)
+![Total Sales by Region](charts/Total%20sales%20by%20region.png)
 
-*(See `/notebooks/index.ipynb` for full charts)*
+*(See `index.ipynb` for the full set of charts and analysis)*
 
 ---
 
@@ -78,7 +79,7 @@ cd super_store_sales_data_analysis
 pip install -r requirements.txt
 
 # 3. Open the notebook
-jupyter notebook notebooks/index.ipynb
+jupyter notebook index.ipynb
 ```
 
 ---
@@ -86,17 +87,17 @@ jupyter notebook notebooks/index.ipynb
 ## 📂 Project Structure
 
 ```
-├── data/
-│   ├── train.csv
+├── train.csv                     # Raw transaction dataset
+├── Divided_data/
 │   ├── customers.csv
 │   ├── orders.csv
 │   ├── products.csv
-│   ├── order_details.csv
-│   └── superstore_sales_fixed.db
-├── notebooks/
-│   └── index.ipynb
-├── README.md
-└── requirements.txt
+│   └── order_details.csv
+├── superstore_sales_fixed.db     # SQLite database (normalized tables)
+├── charts/                       # Saved chart images used in this README
+├── index.ipynb                   # Main analysis notebook
+├── requirements.txt
+└── README.md
 ```
 
 ---
