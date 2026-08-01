@@ -59,11 +59,10 @@ The raw CSV was normalized into a **relational schema (4 tables)**, stored in `D
 
 ## 📈 Sample Visualizations
 
-![Month-over-Month Sales Trend](charts/Month-over-Month%20Sales%20Trend.png)
-![Customer Segmentation (RFM)](charts/Customer%20Segmentation.png)
+![Month-over-Month Sales Trend](charts/Month-over-Month%20Sales%20Trend%20(2015%E2%80%932018).png)
+![Customer Segmentation (RFM)](charts/Customer%20Segmentation%20(RFM).png)
 ![Customer Cohort Retention](charts/Customer%20cohort%20retention.png)
 ![Total Sales by Region](charts/Total%20sales%20by%20region.png)
-
 *(See `index.ipynb` for the full set of charts and analysis)*
 
 ---
