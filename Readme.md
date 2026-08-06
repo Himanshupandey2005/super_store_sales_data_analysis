@@ -1,128 +1,146 @@
-# 🛒 Superstore Sales Analysis
+# 🛒 Superstore Sales Analysis — EDA to Power BI Dashboard
 
-A complete SQL + Python data analysis project on 4 years (2015–2018) of retail transaction data, uncovering sales trends, customer purchasing behavior, product performance, and regional sales patterns to support data-driven business decisions.
-
----
-
-## 📌 Business Problem
-
-A retail superstore wants to understand:
-
-- Which products, categories, and regions generate the highest and lowest sales?
-- Who are the most valuable customers based on sales?
-- Are there seasonal patterns in customer purchases?
-- How have sales changed year over year?
-- Which shipping modes and regions contribute the most to overall sales?
-
-This project answers these questions using **SQL** for business queries and **Python (Pandas, Matplotlib, Seaborn, Plotly)** for exploratory data analysis and visualization.
+An end-to-end sales analytics project on the **Superstore dataset** (2015–2018), covering data cleaning, exploratory data analysis in Python, and an interactive Power BI dashboard — turning **9,800 order line items** into actionable business insights.
 
 ---
 
-## 📊 Dataset
+## 🧭 Project Workflow
 
-- **Source:** Superstore Sales dataset (`train.csv`)
-- **Size:** 9,800 transaction rows | 4,922 unique orders | 793 unique customers
-- **Time Range:** 2015–2018
-- **Columns:** Order details, Customer information, Product information, Sales, Shipping information, and Location (State, City, Region)
+```
+Raw Data → Data Cleaning → EDA (Python) → Power BI Dashboard → Insights & Report
+```
 
-The raw CSV was normalized into a relational database consisting of four tables and loaded into **superstore_sales_fixed.db** for SQL-based analysis.
-
-| Table | Description |
-|--------|-------------|
-| customers.csv | Customer ID, Customer Name, Segment, Country |
-| orders.csv | Order ID, Order Date, Ship Date, Ship Mode, Customer ID, City, State, Postal Code, Region |
-| products.csv | Product ID, Category, Sub-Category, Product Name |
-| order_details.csv | Row ID, Order ID, Product ID, Sales |
-
-> **Design Note:** State, City, and Region were intentionally stored in `orders.csv` instead of `customers.csv` because shipping location is an order-level attribute. A customer may place multiple orders shipped to different locations.
+| Stage | Tool | Output |
+|---|---|---|
+| Data Cleaning & EDA | Python (Pandas, Matplotlib/Seaborn) | Charts, trends, segmentation |
+| Business Intelligence | Power BI | Interactive dashboard |
+| Reporting | Markdown / Word | Findings & recommendations |
 
 ---
 
-## 🛠️ Tools & Tech Stack
+## 📈 Exploratory Data Analysis (EDA)
 
-- **Python**
-  - Pandas
-  - Matplotlib
-  - Seaborn
-  - Plotly
-- **SQL**
-  - SQLite (`sqlite3`, `pandas.read_sql`)
-- **Jupyter Notebook**
+Comprehensive EDA was performed using Python to uncover sales trends, customer behavior, and business opportunities across **4,922 unique orders**.
+
+---
+
+### 📊 Month-over-Month Sales Trend (2015–2018)
+
+<p align="center">
+  <img src="charts/monthly_sales_trend.png" width="850">
+</p>
+
+Monthly sales fluctuate across all four years, with a consistent seasonal pattern — demand builds steadily through the year and peaks sharply in the final quarter (September, November–December), driven by back-to-school and holiday buying cycles.
+
+---
+
+### 🌍 Regional Sales Analysis
+
+<p align="center">
+  <img src="charts/region_sales.png" width="700">
+</p>
+
+The **West** and **East** regions generate the highest revenue, together contributing over 60% of total sales, while the **South** region records the lowest — highlighting an opportunity to investigate under-penetrated markets.
+
+---
+
+### 👥 Customer Segmentation (RFM Analysis)
+
+<p align="center">
+  <img src="charts/rfm_segmentation.png" width="700">
+</p>
+
+Customers were segmented using **Recency, Frequency, and Monetary (RFM)** analysis to distinguish high-value loyal customers, potential loyalists, and at-risk customers — enabling targeted retention and re-engagement strategies.
+
+---
+
+### 📈 Pareto Analysis (80/20 Rule)
+
+<p align="center">
+  <img src="charts/pareto_chart.png" width="850">
+</p>
+
+The Pareto chart confirms the classic 80/20 pattern: a relatively small share of customers drives a disproportionately large share of total revenue, pinpointing exactly which segment the business should prioritize for retention.
+
+---
+
+## 📊 Interactive Power BI Dashboard
+
+The findings from the EDA stage were translated into a fully interactive Power BI dashboard, giving stakeholders a self-service tool to explore sales performance without writing a single line of code.
+
+### Dashboard Preview
+
+<p align="center">
+  <img src="PowerBI/dashboard.png" width="100%">
+</p>
+
+### Dashboard Features
+
+- 📌 Total Sales KPI (**$2.26M**)
+- 📌 Total Orders KPI (**4,922**)
+- 📈 Monthly & Yearly Sales Trends
+- 📊 Sales by Category & Sub-Category
+- 👥 Customer Segment Breakdown
+- 🌍 Region & State-wise Sales Analysis
+- 🚚 Shipping Mode Analysis
+- 🎯 Interactive Region Slicer for on-the-fly filtering
+
+📥 [Download the Power BI file](PowerBI/supersales_store_data_analysis.pbix)
 
 ---
 
 ## 🔑 Key Insights
 
-- California and New York together contribute nearly **33% of total sales**, making them the strongest-performing states.
-- **Technology** is the highest-selling category with approximately **$827K** in sales.
-- **Phones** are the best-performing sub-category, generating around **$327K** in sales.
-- **Sean Miller** is the highest-value customer, contributing **$25,043** in total sales.
-- **Standard Class** is the most frequently used shipping mode, accounting for approximately **59% of total sales**.
-- Sales consistently peak during **September–December**, indicating strong holiday-season demand.
-- Sales are generally lowest during **January–February**, suggesting seasonal fluctuations.
-- Total annual sales increased from approximately **$479K in 2015** to **$722K in 2018**, showing steady year-over-year growth.
-- **RFM Analysis** identified High-Value Loyal customers as approximately **25.6% of the customer base**, contributing around **42% of total sales**. At-Risk customers still represent over **$256K in sales**, highlighting opportunities for customer retention.
-- **North Dakota, West Virginia, and Maine** recorded the lowest sales during the analysis period.
-
-> **Note:** This dataset does **not** include a **Profit** column. Therefore, all analyses and insights are based on **Sales**, customer behavior, product performance, shipping preferences, and regional sales trends.
+| Insight | Detail |
+|---|---|
+| 🏆 Top Category | **Technology** — highest revenue despite fewest line items (highest avg. order value) |
+| 👥 Largest Segment | **Consumer** — ~51% of total sales |
+| 📍 Top State | **California** — $446K+ in sales, followed by New York |
+| 🚚 Most Used Shipping | **Standard Class** — 60% of all orders, but slowest avg. delivery (5 days) |
+| 📅 Seasonality | Sales peak **September–December** every year |
+| 📈 YoY Growth | Steady growth from 2015 → 2018, with 2018 up **20.3%** over 2017 |
+| 🎯 Pareto Effect | A small % of customers drive a large share of revenue — ideal loyalty-program targets |
 
 ---
 
-## 📈 Sample Visualizations
-
-- Month-over-Month Sales Trend
-- Sales by Category
-- Sales by Sub-Category
-- Sales by State
-- Sales by Region
-- Customer Segmentation (RFM)
-- Customer Cohort Retention
-- Top Customers
-- Shipping Mode Distribution
-
-See **index.ipynb** for the complete analysis and visualizations.
-
----
-
-## 🚀 How to Run
-
-```bash
-# Clone the repository
-git clone https://github.com/Himanshupandey2005/super_store_sales_data_analysis.git
-
-# Navigate into the project
-cd super_store_sales_data_analysis
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Launch Jupyter Notebook
-jupyter notebook index.ipynb
-```
-
----
-
-## 📂 Project Structure
+## 🗂️ Repository Structure
 
 ```
-├── train.csv
-├── Divided_data/
-│   ├── customers.csv
-│   ├── orders.csv
-│   ├── products.csv
-│   └── order_details.csv
-├── superstore_sales_fixed.db
-├── charts/
-├── index.ipynb
-├── requirements.txt
+├── data/                          # Cleaned dataset
+├── notebooks/                     # EDA notebooks (Python)
+├── charts/                        # Exported EDA visualizations
+│   ├── monthly_sales_trend.png
+│   ├── region_sales.png
+│   ├── rfm_segmentation.png
+│   └── pareto_chart.png
+├── PowerBI/
+│   ├── supersales_store_data_analysis.pbix
+│   └── dashboard.png
+├── Superstore_Sales_Analysis_Report.docx   # Final written report
 └── README.md
 ```
 
 ---
 
-## 👤 Author
+## 🛠️ Tech Stack
 
-**Himanshu Pandey**
+`Python` · `Pandas` · `Matplotlib` / `Seaborn` · `Power BI` · `DAX`
 
-- Passionate about **Data Analytics**, **SQL**, and **Python**
-- Interested in transforming raw business data into meaningful insights through data visualization and exploratory analysis.
+---
+
+## 🚀 How to Reproduce
+
+1. Clone this repo: `git clone <repo-url>`
+2. Install dependencies: `pip install -r requirements.txt`
+3. Run the EDA notebooks in `notebooks/` to regenerate the charts
+4. Open `PowerBI/supersales_store_data_analysis.pbix` in Power BI Desktop to explore the dashboard interactively
+
+---
+
+## 📄 Full Report
+
+For the complete written analysis with detailed breakdowns, recommendations, and methodology, see [Superstore_Sales_Analysis_Report.docx](Superstore_Sales_Analysis_Report.docx).
+
+---
+
+⭐ If you found this project useful, consider giving it a star!
